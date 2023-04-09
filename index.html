@@ -12,16 +12,35 @@
   </head>
   <body>
     <input class="emscripten" id="arg1" type="text" value="0x3f800000">
-    <input class="emscripten" id="arg2" type="text" value="+">
+    <div class="emscripten" id="op-buttons">
+      <button class="op-button" id="add-button" style="background-color: gray;">+</button>
+      <button class="op-button" id="subtract-button">-</button>
+      <button class="op-button" id="multiply-button">x</button>
+      <button class="op-button" id="divide-button">/</button>
+      <button class="op-button" id="modulo-button">%</button>
+    </div>
+
     <input class="emscripten" id="arg3" type="text" value="0x3fC00000">
     <textarea class="emscripten" id="output" rows="8"></textarea>
+
     <script type='text/javascript'>
-      var statusElement = document.getElementById('status');
-      var progressElement = document.getElementById('progress');
+
+      // var statusElement = document.getElementById('status');
+      // var progressElement = document.getElementById('progress');
+
+      // Add event listeners to each input field
+      var arg1 = document.getElementById('arg1');
+      var arg2 = '+';
+      var arg3 = document.getElementById('arg3');
+      var addButton = document.getElementById('add-button');
+      var subButton = document.getElementById('subtract-button');
+      var mulButton = document.getElementById('multiply-button');
+      var divButton = document.getElementById('divide-button');
+      var modButton = document.getElementById('modulo-button');
 
       var Module = {
         preRun: [],
-        arguments: [document.getElementById('arg1').value, document.getElementById('arg2').value, document.getElementById('arg3').value],
+        arguments: [document.getElementById('arg1').value, arg2, document.getElementById('arg3').value],
         postRun: [],
         print: (function() {
           var element = document.getElementById('output');
@@ -48,20 +67,60 @@
         }
       };
 
-      // Add event listeners to each input field
-      var arg1 = document.getElementById('arg1');
-      var arg2 = document.getElementById('arg2');
-      var arg3 = document.getElementById('arg3');
-
       function updateArgumentsAndRun() {
-        Module.arguments = [arg1.value, arg2.value, arg3.value];
+        Module.arguments = [arg1.value, arg2, arg3.value];
         Module.print("\n\n\n");
         Module.callMain(Module.arguments);
       }
 
       arg1.addEventListener('input', updateArgumentsAndRun);
-      arg2.addEventListener('input', updateArgumentsAndRun)
       arg3.addEventListener('input', updateArgumentsAndRun);
+
+      var clicked = 'gray'
+      function clearButtons() {
+        var unclicked = ''
+        addButton.style.backgroundColor = unclicked;
+        subButton.style.backgroundColor = unclicked;
+        mulButton.style.backgroundColor = unclicked;
+        divButton.style.backgroundColor = unclicked;
+        modButton.style.backgroundColor = unclicked;
+      }
+
+      addButton.addEventListener('click', function() {
+        arg2 = '+';
+        updateArgumentsAndRun();
+        clearButtons();
+        addButton.style.backgroundColor = clicked;
+      });
+
+      subButton.addEventListener('click', function() {
+        arg2 = '-';
+        updateArgumentsAndRun();
+        clearButtons();
+        subButton.style.backgroundColor = clicked;
+      });
+
+      mulButton.addEventListener('click', function() {
+        arg2 = 'x';
+        updateArgumentsAndRun();
+        clearButtons();
+        mulButton.style.backgroundColor = clicked;
+      });
+
+      divButton.addEventListener('click', function() {
+        arg2 = '/';
+        updateArgumentsAndRun();
+        clearButtons();
+        divButton.style.backgroundColor = clicked;
+      });
+
+      modButton.addEventListener('click', function() {
+        arg2 = '%';
+        updateArgumentsAndRun();
+        clearButtons();
+        modButton.style.backgroundColor = clicked;
+      });
+      
 
     </script>
     <script async type="text/javascript" src="index.js"></script>
