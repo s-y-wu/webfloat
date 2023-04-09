@@ -11,6 +11,9 @@
     </style>
   </head>
   <body>
+    <input class="emscripten" id="arg1" type="text" value="0x3f800000">
+    <input class="emscripten" id="arg2" type="text" value="+">
+    <input class="emscripten" id="arg3" type="text" value="0x3fC00000">
     <textarea class="emscripten" id="output" rows="8"></textarea>
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
@@ -18,7 +21,7 @@
 
       var Module = {
         preRun: [],
-        arguments: ["0x3f800000", "+", "0x3fC00000"],
+        arguments: [document.getElementById('arg1').value, document.getElementById('arg2').value, document.getElementById('arg3').value],
         postRun: [],
         print: (function() {
           var element = document.getElementById('output');
