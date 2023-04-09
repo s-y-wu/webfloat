@@ -119,7 +119,7 @@ void printF64(char *msg, float64_t f) {
   fract = f.v & mask; long2binstr(fract, fractstr, 52);
   exp = (f.v >> 52) & ((1<<11) -1);
   sign = f.v >> 63 ? '-' : '+';
-  // printf("\nshrek %c %lld %lld  \n", sign, exp, fract);
+  // printf("%c %lld %lld \n", sign, exp, fract);
   if (exp == 0 && fract == 0) sprintf(sci, "%czero", sign);
   else if (exp == 0 && fract != 0) sprintf(sci, "Denorm: %c0.%s x 2^-1022", sign, fractstr);
   else if (exp == 2047 && fract == 0) sprintf(sci, "%cinf", sign);
@@ -180,6 +180,7 @@ uint64_t parseNum(char *num) {
     //printf ("Operand size is %d\n", opSize);
   }
   result = (uint64_t)strtoull(num, NULL, 16);
+  // printf("Parsed %s as %llx \n", num, result);
   return result;
 }
 
