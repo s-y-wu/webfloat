@@ -109,7 +109,7 @@ void printF32(char *msg, float32_t f) {
 void printF64(char *msg, float64_t f) {
   dp conv;
   long exp, fract;
-  long mask;
+  long long mask;
   char sign;
   char sci[200], fractstr[200];
 
@@ -128,13 +128,13 @@ void printF64(char *msg, float64_t f) {
 
   //printf ("%s: 0x%016lx = %lg\n", msg, conv.v, conv.d);
   printf("%s: ", msg);
-  printf("0x%04lx", (conv.v >> 48));
+  printf("0x%04llx", (conv.v >> 48));
   printf("_");
-  printf("%04lx", (conv.v >> 32) & 0xFFFF);
+  printf("%04llx", (conv.v >> 32) & 0xFFFF);
   printf("_");
-  printf("%04lx", (conv.v >> 16) & 0xFFFF);
+  printf("%04llx", (conv.v >> 16) & 0xFFFF);
   printf("_");  
-  printf("%04lx", (conv.v & 0xFFFF));
+  printf("%04llx", (conv.v & 0xFFFF));
   printf(" = %lg = %s: Biased Exp %ld Fract 0x%lx\n", conv.d, sci, exp, fract);
   //printf ("%s: 0x%016lx = %lg = %s: Biased Exp %d Fract 0x%lx\n", 
   //  msg, conv.v, conv.d, sci, exp, fract); 
@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
             default: printf("Unknown op %c\n", op1); exit(1);
           }
           printF64("X", x); printF64("Y", y); 
-          sprintf(cmd, "0x%016lx %c 0x%016lx", x.v, op1, y.v);
+          sprintf(cmd, "0x%016llx %c 0x%016llx", x.v, op1, y.v);
           printF64(cmd, r); printFlags();
 
         }
