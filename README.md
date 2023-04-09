@@ -3,12 +3,27 @@ Static webpage for a floating point calculator powered Berkeley SoftFloat
 
 
 ## Installation Requirements
-1. [Emscripten](https://emscripten.org/docs/getting_started/downloads.html): After installing, activate `emcc` in terminal by running the command below in the `emsdk` repo (following the installation instructions):
+1. Download Emscripten [(source)](https://emscripten.org/docs/getting_started/downloads.html): 
    ```
+   # cd into a new directory outside this repo
+   cd ..
+   
+   # Get the emsdk repo
+   git clone https://github.com/emscripten-core/emsdk.git
+
+   # Enter that directory
+   cd emsdk
+   
+   # Fetch the latest version of the emsdk (not needed the first time you clone)
+   git pull
+
+   # Download and install the latest SDK tools.
+   ./emsdk install latest
+   
+   # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
    ./emsdk activate latest
    ```
-
-2. [Berkeley SoftFloat](https://github.com/ucb-bar/berkeley-softfloat-3) (OPTIONAL)
+2. (OPTIONAL) Get source code from Berkeley SoftFloat [(source)](https://github.com/ucb-bar/berkeley-softfloat-3) 
    
     I compiled `softfloat.a` (included in the repo already) by changing the following line in  `berkeley-softfloat-3/build/Linux-x86_64-GCC/Makefile` and running `make` in the same directory on a Linux x86 machine. 
     ```
