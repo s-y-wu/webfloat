@@ -47,6 +47,22 @@
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
         }
       };
+
+      // Add event listeners to each input field
+      var arg1 = document.getElementById('arg1');
+      var arg2 = document.getElementById('arg2');
+      var arg3 = document.getElementById('arg3');
+
+      function updateArgumentsAndRun() {
+        Module.arguments = [arg1.value, arg2.value, arg3.value ];
+        Module.print("\n\n\n");
+        Module.callMain(Module.arguments);
+      }
+
+      arg1.addEventListener('input', updateArgumentsAndRun);
+      arg2.addEventListener('input', updateArgumentsAndRun)
+      arg3.addEventListener('input', updateArgumentsAndRun);
+
     </script>
     <script async type="text/javascript" src="index.js"></script>
   </body>

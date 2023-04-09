@@ -1395,6 +1395,7 @@ var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
 
+Module["callMain"] = callMain;
 var missingLibrarySymbols = [
   'zeroMemory',
   'getHeapMax',
@@ -1596,7 +1597,6 @@ var unexportedSymbols = [
   'FS_unlink',
   'out',
   'err',
-  'callMain',
   'abort',
   'keepRuntimeAlive',
   'wasmMemory',
