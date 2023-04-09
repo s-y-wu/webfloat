@@ -19,5 +19,5 @@ Static webpage for a floating point calculator powered Berkeley SoftFloat
 ## Build WebAssembly and Glued HTML/JS
 In the repo directory, run the command below.
 ```
-emcc fpcalc.c -o index.html softfloat.a --shell-file shell_minimal.html -s EXPORTED_RUNTIME_METHODS='["callMain"]'
+emcc fpcalc.c -o index.html softfloat.a --shell-file template.html -s EXPORTED_RUNTIME_METHODS='["callMain"]'
 ```
