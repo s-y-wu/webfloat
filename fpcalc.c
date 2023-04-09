@@ -29,7 +29,7 @@ typedef union dp {
 
 int opSize = 0;
 
-void long2binstr(unsigned long  val, char *str, int bits) {
+void long2binstr(unsigned long long val, char *str, int bits) {
   int i, shamt;
   unsigned long long mask, masked;
 
@@ -37,7 +37,7 @@ void long2binstr(unsigned long  val, char *str, int bits) {
     str[0] = '0';
     str[1] = 0; 
   } else {
-    //    printf("long2binstr %lx %s %d\n", val, str, bits);
+    // printf("long2binstr %llx %s %d\n", val, str, bits);
     for (i=0; (i<bits) && (val != 0); i++) {
       shamt = bits - i - 1;
       mask = 1;
@@ -119,7 +119,7 @@ void printF64(char *msg, float64_t f) {
   fract = f.v & mask; long2binstr(fract, fractstr, 52);
   exp = (f.v >> 52) & ((1<<11) -1);
   sign = f.v >> 63 ? '-' : '+';
-  printf("\nshrek %c %lld %lld  \n", sign, exp, fract);
+  // printf("\nshrek %c %lld %lld  \n", sign, exp, fract);
   if (exp == 0 && fract == 0) sprintf(sci, "%czero", sign);
   else if (exp == 0 && fract != 0) sprintf(sci, "Denorm: %c0.%s x 2^-1022", sign, fractstr);
   else if (exp == 2047 && fract == 0) sprintf(sci, "%cinf", sign);
@@ -179,8 +179,7 @@ uint64_t parseNum(char *num) {
     opSize = size;
     //printf ("Operand size is %d\n", opSize);
   }
-  result = (uint64_t)strtoul(num, NULL, 16);
-  //printf("Parsed %s as 0x%lx\n", num, result);
+  result = (uint64_t)strtoull(num, NULL, 16);
   return result;
 }
 
