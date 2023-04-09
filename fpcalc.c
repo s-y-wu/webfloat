@@ -100,7 +100,7 @@ void printF32(char *msg, float32_t f) {
   printf("%s: ", msg);
   printf("0x%04x", (conv.v >> 16));
   printf("_");
-  printf("%04x", (conv.v & 0xFF));
+  printf("%04x", (conv.v & 0xFFFF));
   printf(" = %g = %s: Biased Exp %ld Fract 0x%lx\n", conv.f, sci, exp, fract);
   //printf ("%s: 0x%08x = %g = %s: Biased Exp %d Fract 0x%lx\n", 
   //  msg, conv.v, conv.f, sci, exp, fract);  
