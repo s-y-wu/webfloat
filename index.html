@@ -21,6 +21,12 @@
     </div>
 
     <input class="emscripten" id="arg3" type="text" value="0x3fC00000">
+    <div class="emscripten" id="rounding-buttons">
+      <button class="rounding-button" id="RNE-button" style="background-color: gray;">Round to nearest even</button>
+      <button class="rounding-button" id="RZ-button">Round toward zero</button>
+      <button class="rounding-button" id="RP-button">Round to negative infinity</button>
+      <button class="rounding-button" id="RM-button">Round to positive infinity</button>
+    </div>
     <textarea class="emscripten" id="output" rows="8"></textarea>
 
     <script type='text/javascript'>
@@ -32,15 +38,23 @@
       var arg1 = document.getElementById('arg1');
       var arg2 = '+';
       var arg3 = document.getElementById('arg3');
+      var arg4 = 'RNE';
+
       var addButton = document.getElementById('add-button');
       var subButton = document.getElementById('subtract-button');
       var mulButton = document.getElementById('multiply-button');
       var divButton = document.getElementById('divide-button');
       var modButton = document.getElementById('modulo-button');
 
+      var RNEButton = document.getElementById('RNE-button');
+      var RZButton = document.getElementById('RZ-button');
+      var RPButton = document.getElementById('RP-button');
+      var RMButton = document.getElementById('RM-button');
+
+
       var Module = {
         preRun: [],
-        arguments: [document.getElementById('arg1').value, arg2, document.getElementById('arg3').value],
+        arguments: [document.getElementById('arg1').value, arg2, document.getElementById('arg3').value, arg4],
         postRun: [],
         print: (function() {
           var element = document.getElementById('output');
@@ -68,7 +82,7 @@
       };
 
       function updateArgumentsAndRun() {
-        Module.arguments = [arg1.value, arg2, arg3.value];
+        Module.arguments = [arg1.value, arg2, arg3.value, arg4];
         Module.print("\n\n\n");
         Module.callMain(Module.arguments);
       }
@@ -77,8 +91,8 @@
       arg3.addEventListener('input', updateArgumentsAndRun);
 
       var clicked = 'gray'
-      function clearButtons() {
-        var unclicked = ''
+      var unclicked = ''
+      function clearOpButtons() {
         addButton.style.backgroundColor = unclicked;
         subButton.style.backgroundColor = unclicked;
         mulButton.style.backgroundColor = unclicked;
@@ -86,39 +100,75 @@
         modButton.style.backgroundColor = unclicked;
       }
 
+      function clearRoundingButtons() {
+        RNEButton.style.backgroundColor = unclicked;
+        RZButton.style.backgroundColor = unclicked;
+        RPButton.style.backgroundColor = unclicked;
+        RMButton.style.backgroundColor = unclicked;
+      }
+
+
       addButton.addEventListener('click', function() {
         arg2 = '+';
         updateArgumentsAndRun();
-        clearButtons();
+        clearOpButtons();
         addButton.style.backgroundColor = clicked;
       });
 
       subButton.addEventListener('click', function() {
         arg2 = '-';
         updateArgumentsAndRun();
-        clearButtons();
+        clearOpButtons();
         subButton.style.backgroundColor = clicked;
       });
 
       mulButton.addEventListener('click', function() {
         arg2 = 'x';
         updateArgumentsAndRun();
-        clearButtons();
+        clearOpButtons();
         mulButton.style.backgroundColor = clicked;
       });
 
       divButton.addEventListener('click', function() {
         arg2 = '/';
         updateArgumentsAndRun();
-        clearButtons();
+        clearOpButtons();
         divButton.style.backgroundColor = clicked;
       });
 
       modButton.addEventListener('click', function() {
         arg2 = '%';
         updateArgumentsAndRun();
-        clearButtons();
+        clearOpButtons();
         modButton.style.backgroundColor = clicked;
+      });
+
+      RNEButton.addEventListener('click', function() {
+        arg4 = 'RNE';
+        updateArgumentsAndRun();
+        clearRoundingButtons();
+        RNEButton.style.backgroundColor = clicked;
+      });
+
+      RZButton.addEventListener('click', function() {
+        arg4 = 'RZ';
+        updateArgumentsAndRun();
+        clearRoundingButtons();
+        RZButton.style.backgroundColor = clicked;
+      });
+
+      RPButton.addEventListener('click', function() {
+        arg4 = 'RP';
+        updateArgumentsAndRun();
+        clearRoundingButtons();
+        RPButton.style.backgroundColor = clicked;
+      });
+
+      RMButton.addEventListener('click', function() {
+        arg4 = 'RM';
+        updateArgumentsAndRun();
+        clearRoundingButtons();
+        RMButton.style.backgroundColor = clicked;
       });
       
 
