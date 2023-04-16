@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" href="/favicon.png">
+    <meta charset="iso-8859-1">
+    <title>IEEE 754 Calculator</title>
+    <meta charset="iso-8859-1">
+    <style>
+     * { font-family: Verdana, Geneva, sans-serif; font-size: small; }
+     table, th, td { border: 1px solid black; padding: 0px; border-spacing: 0px }
+     p.info { margin-left: auto; margin-right: auto; max-width: 800px; text-align: justify }
+     code { font-family: monospace }
+    </style>
+    <script src="d3.min.js" charset="utf-8"></script>
+    <script src="BigInteger.min.js"></script>
+    <script src="Fraction.js"></script>
+    <script src="IEEE.js"></script>
+    <script src="code.js"></script>
+  </head>
+  <body>
+    <center><h3 style="font-size: large; margin-bottom: 3px">IEEE 754 Calculator</h3>
+      <div style="font-size: x-small">(See info at bottom of page.)</div></center>
+    <div style="height: 3em"></div>
+    <center>
+      <table><tr>
+        <th colspan=2></th>
+        <th colspan=3 style="text-align:center">Sign</th>
+        <th colspan=3>Significand</th>
+        <th></th>
+        <th>Exponent</th>
+      </tr><tr>
+        <td colspan=10 style="height:1.3em"></td>
+      </tr><tr>
+        <td><input id="in1" style="text-align:right" size="30" style="font-family: monospace" type="text" value="0.0"></td>
+        <td style="width:4em">&nbsp;</td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="sign1" maxlength="1" size="1" style="font-family: monospace" type="text" value="0"></td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="hidden1" disabled maxlength="1" size="1" style="font-family: monospace; color: red" type="text" value="0"></td>
+        <td>.</td>
+        <td><input id="mantissa1" maxlength="52" size="52" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="exp1" maxlength="11" size="11" style="font-family: monospace" type="text" value="00000000000"></td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="signOut1" style="color:blue; text-align:center; font-weight:bold; font-family:monospace">+</td>
+        <td style="width:2em">&nbsp;</td>
+        <td id="mantissaOut1" colspan=3 style="color:blue; text-align:center; font-weight:bold; font-family:monospace">0.0</td>
+        <td style="width:2em">&nbsp;</td>
+        <td id="expOut1" style="color:blue; text-align:center; font-weight:bold; font-family:monospace">0</td>
+      </tr><tr>
+        <td colspan=10 style="height:0.3em"></td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="hexOut1" colspan=7 style="color:#505050; text-align:center; font-family:monospace">0x0000000000000000</td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="binOut1" colspan=7 style="color:#505050; text-align:center; font-family:monospace">0b0000000000000000000000000000000000000000000000000000000000000000</td>
+      </tr><tr>
+        <td colspan=10 style="height:3.5em"></td>
+      </tr><tr>
+        <td><input id="in2" style="text-align:right" size="30" style="font-family: monospace" type="text" value="0.0"></td>
+        <td style="width:4em">&nbsp;</td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="sign2" maxlength="1" size="1" style="font-family: monospace" type="text" value="0"></td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="hidden2" disabled maxlength="1" size="1" style="font-family: monospace; color: red" type="text" value="0"></td>
+        <td>.</td>
+        <td><input id="mantissa2" maxlength="52" size="52" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="exp2" maxlength="11" size="11" style="font-family: monospace" type="text" value="00000000000"></td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="signOut2" style="color:blue; text-align:center; font-weight:bold; font-family:monospace">+</td>
+        <td style="width:2em">&nbsp;</td>
+        <td id="mantissaOut2" colspan=3 style="color:blue; text-align:center; font-weight:bold; font-family:monospace">0.0</td>
+        <td style="width:2em">&nbsp;</td>
+        <td id="expOut2" style="color:blue; text-align:center; font-weight:bold; font-family:monospace">0</td>
+      </tr><tr>
+        <td colspan=10 style="height:0.3em"></td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="hexOut2" colspan=7 style="color:#505050; text-align:center; font-family:monospace">0x0000000000000000</td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="binOut2" colspan=7 style="color:#505050; text-align:center; font-family:monospace">0b0000000000000000000000000000000000000000000000000000000000000000</td>
+      </tr><tr>
+        <td colspan=10 style="height:2em"></td>
+      </tr><tr>
+        <td colspan=10 style="text-align: center">
+          <button id="plusButton" type="button" style="font-family: monospace; font-size: large">+</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="minusButton" type="button" style="font-family: monospace; font-size: large">-</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="timesButton" type="button" style="font-family: monospace; font-size: large">&times;</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="divButton" type="button" style="font-family: monospace; font-size: large">/</button>
+        </td>
+      </tr><tr>
+        <td colspan=10 style="height:5em"></td>
+      </tr><tr>
+        <td><input id="in3" style="text-align:right" size="30" style="font-family: monospace" type="text" value="0.0"></td>
+        <td style="width:4em">&nbsp;</td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="sign3" maxlength="1" size="1" style="font-family: monospace" type="text" value="0"></td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="hidden3" disabled maxlength="1" size="1" style="font-family: monospace; color: red" type="text" value="0"></td>
+        <td>.</td>
+        <td><input id="mantissa3" maxlength="52" size="52" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="width:2em">&nbsp;</td>
+        <td><input id="exp3" maxlength="11" size="11" style="font-family: monospace" type="text" value="00000000000"></td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="signOut3" style="color:blue; text-align:center; font-weight:bold; font-family:monospace">+</td>
+        <td style="width:2em">&nbsp;</td>
+        <td id="mantissaOut3" colspan=3 style="color:blue; text-align:center; font-weight:bold; font-family:monospace">0.0</td>
+        <td style="width:2em">&nbsp;</td>
+        <td id="expOut3" style="color:blue; text-align:center; font-weight:bold; font-family:monospace">0</td>
+      </tr><tr>
+        <td colspan=10 style="height:0.3em"></td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="hexOut3" colspan=7 style="color:#505050; text-align:center; font-family:monospace">0x0000000000000000</td>
+      </tr><tr>
+        <td colspan=3></td>
+        <td id="binOut3" colspan=7 style="color:#505050; text-align:center; font-family:monospace">0b0000000000000000000000000000000000000000000000000000000000000000</td>
+      </tr></table>
+    </center>
+    <div style="height:20em"></div>
+    <center>
+      <p class="info">
+        This is a little calculator intended to help you understand the <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE&nbsp;754</a> standard for floating-point computation.  It is implemented in <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> and should work with recent desktop versions of <a href="https://www.google.com/chrome/">Chrome</a> and <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>.
+        I haven't tested with other browsers.  (And on Chrome it looks
+        a bit ugly because the input boxes are a too wide.)
+      </p>
+      <p class="info">
+        If you enter a floating-point number in one of the three boxes
+        on the left and press the <em>Enter</em> key, you will see the
+        number's bit pattern on the right.  You can enter numbers
+        using the syntax typically accepted in programming languages,
+        for example <code>42</code>, <code>2.345</code>, <code>12E-3</code>, and so on; you can input the values <code>NaN</code>, <code>Inf</code>, and <code>-Inf</code> directly; and you can also enter fractions using the syntax <code>17/23</code>.  Finally, you can use as input bit patterns as shown on the right (the ones starting with <code>0b</code> or <code>0x</code>).
+      </p>
+      <p class="info">
+        Or you can do it the other way around and manipulate the bits on the right.  Once you've pressed <em>Enter</em>,
+        the number to the left will be updated.  In the exponent
+        field, instead of a bit pattern you can also enter a decimal
+        starting with <code>+</code> or&nbsp;<code>-</code>.  (Note
+       that the red digit is the <a href="https://en.wikipedia.org/wiki/Significand#Significands_and_the_hidden_bit"><em>hidden bit</em></a> and can't be changed directly.)
+      </p>
+      <p class="info">
+        Press one of the four buttons to add, subtract, multiply, or
+        divide the two numbers above the buttons and show the result below.
+      </p>
+      <p class="info">
+        The rounding mode used is <a href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules"><em>round to nearest, ties to even</em></a>.
+        The code doesn't distinguish between quiet and signaling <a href="https://en.wikipedia.org/wiki/NaN"><code>NaN</code></a>, i.e. all <code>NaN</code>s are quiet and use the same bit pattern.
+      </p>
+      <p class="info">
+        The IEEE standard defines various binary and decimal formats.  The default format for this page is <em>binary64</em>,
+        but you can use the buttons below to switch to some of the other variants.
+      </p>
+      <center>
+        <button id="sizeButton16" type="button">binary16&nbsp;</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="sizeButton32" type="button">binary32&nbsp;</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="sizeButton64" type="button">binary64&nbsp;</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="sizeButton128" type="button">binary128</button>        
+      </center>
+      <div style="height: 1em"></div>
+      <p class="info" style="font-size: xx-small">Copyright (c) 2016, <a style="font-size: xx-small" href="http://www.weitz.de/">Prof. Dr. Edmund Weitz</a>.&nbsp;<a style="font-size: xx-small" href="http://weitz.de/imprint.html">Impressum, Datenschutzerklärung</a>.</p>
+    </center>
+  </body>
+</html>
