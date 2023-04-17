@@ -56,35 +56,6 @@
 
     <br>
 
-    <table style="background-color: rgb(197, 248, 187)"><tr>
-      <th>Input</th>
-      <td style="padding-left: 10px">
-        <select class="custom-select-type">
-        <option>Floating Point</option>
-        <option>Integer</option>
-        <option>Unsigned Integer</option>
-        </select>
-      </td>
-      <td style="padding-left: 10px">
-        <select class="custom-select-precision">
-        <option>Half (16 bit)</option>
-        <option>Single (32 bit)</option>
-        <option>Double (64 bit)</option>
-        <option>Extended (80 bit)</option>
-        <option>Quad (128 bit)</option>
-        </select>
-      </td><tr>
-      <td></td>
-      <td style="padding-left: 10px; text-align:center">Type</td>
-      <td style="padding-left: 10px; text-align:center">Precision</td>
-      </tr>
-    </tr></table>
-
-    <br>
-
-
-    <br>
-
     <center>
       <table style="background-color: rgb(197, 248, 187)"><tr>
         <th style="padding-right: 30px">Decimal</th>
@@ -112,71 +83,128 @@
       
       <br>
 
-      <table style="background-color: rgb(170, 238, 238)"><tr>
+      <table  style="background-color: rgb(170, 238, 238)"><tr>
         <th>Operation</th>
         <td style="padding-left: 50px"><button>+</button></td>
         <td style="padding-left: 10px"><button>-</button></td>
         <td style="padding-left: 10px"><button>x</button></td>
         <td style="padding-left: 10px"><button>÷</button></td>
         <td style="padding-left: 10px"><button>%</button></td>
+        <td style="padding-left: 10px"><button><</button></td>
+        <td style="padding-left: 10px"><button>≤</button></td>
         <td style="padding-left: 50px"><button>√</button></td>
-        <td style="padding-left: 50px"><button>Convert</button></td>
+        <td style="padding-left: 10px"><button>Convert</button></td>
+        <td style="padding-left: 50px"><button>Multiply-Add</button></td>
       </tr></table>
 
-      <br>
+      <div id="second-input-table" style="display: none">
+        <br>
+        <table style="background-color: rgb(197, 248, 187)"><tr>
+          <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+          
+          <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
+          <td style="text-align:left; padding-right: 30px"><input style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+          
+          <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
+          <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
+          <td style="text-align:center"><input style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+          <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="x2"></td>
+          <td style="text-align:left; padding-bottom: 20px"><input style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+        </table></tr>
+      </div>
+      
 
-      <table style="background-color: rgb(170, 238, 238)"><tr>
-        <th>Converted to</th>
-        <td style="padding-left: 10px">
-          <select class="custom-select-type">
-          <option>Floating Point</option>
-          <option>Integer</option>
-          <option>Unsigned Integer</option>
-          </select>
-        </td>
-        <td style="padding-left: 10px">
-          <select class="custom-select-precision">
-          <option>Half (16 bit)</option>
-          <option>Single (32 bit)</option>
-          <option>Double (64 bit)</option>
-          <option>Extended (80 bit)</option>
-          <option>Quad (128 bit)</option>
-          </select>
-        </td><tr>
-        <td></td>
-        <td style="padding-left: 10px; text-align:center">Type</td>
-        <td style="padding-left: 10px; text-align:center">Precision</td>
-        </tr>
-      </tr></table>
+      <div id="third-input-table" style="display: none">
+        <br>
+        <table style="background-color: rgb(197, 248, 187)"><tr>
+          <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+          
+          <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
+          <td style="text-align:left; padding-right: 30px"><input style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+          
+          <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
+          <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
+          <td style="text-align:center"><input style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+          <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="x2"></td>
+          <td style="text-align:left; padding-bottom: 20px"><input style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+        </table></tr>
+      </div>
+      
 
-      <br>
 
-      <table style="background-color: rgb(197, 248, 187)"><tr>
-        <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
-        
-        <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
-        
-        <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
-        <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-        <td style="text-align:center"><input style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
-        <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="x2"></td>
-        <td style="text-align:left; padding-bottom: 20px"><input style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
-      </table></tr>
-      <br>
+      <div id="input-precision-table" style="display: none">
+        <br>
+        <table style="background-color: rgb(197, 248, 187)"><tr>
+          <th>Input</th>
+          <td style="padding-left: 10px">
+            <select class="custom-select-precision">
+            <option>Half (16 bit)</option>
+            <option>Single (32 bit)</option>
+            <option>Double (64 bit)</option>
+            <option>Extended (80 bit)</option>
+            <option>Quad (128 bit)</option>
+            </select>
+          </td><tr>
+          <td></td>
+          <td style="padding-left: 10px; text-align:center">Precision</td>
+          </tr>
+        </tr></table>
+      </div>
 
-      <table style="background-color: rgb(197, 248, 187)"><tr>
-        <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
-        
-        <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
-        
-        <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
-        <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-        <td style="text-align:center"><input style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
-        <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="x2"></td>
-        <td style="text-align:left; padding-bottom: 20px"><input style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
-      </table></tr>
+      <div id="convert-table" style="display: true">
+        <br>
+        <table style="background-color: rgb(197, 248, 187)"><tr>
+          <colgroup>
+            <col span="3" style="background-color: rgb(197, 248, 187)">
+            <col span="1" style="background-color: #fbf1c7">
+            <col span="3" style="background-color: rgb(218, 165, 236)">
+          </colgroup>
+          <th>Convert From</th>
+          <td style="padding-left: 10px">
+            <select class="custom-select-type">
+            <option>Floating Point</option>
+            <option>Integer</option>
+            <option>Unsigned Integer</option>
+            </select>
+          </td>
+          <td style="padding-left: 10px">
+            <select class="custom-select-precision">
+            <option>Half (16 bit)</option>
+            <option>Single (32 bit)</option>
+            <option>Double (64 bit)</option>
+            <option>Extended (80 bit)</option>
+            <option>Quad (128 bit)</option>
+            </select>
+          </td>
+          <td style="padding-left: 50px"></td>
+          <th>Converted To</th>
+          <td style="padding-left: 10px">
+            <select class="custom-select-type">
+            <option>Floating Point</option>
+            <option>Integer</option>
+            <option>Unsigned Integer</option>
+            </select></td>
+          <td style="padding-left: 10px">
+            <select class="custom-select-precision">
+              <option>Half (16 bit)</option>
+              <option>Single (32 bit)</option>
+              <option>Double (64 bit)</option>
+              <option>Extended (80 bit)</option>
+              <option>Quad (128 bit)</option>
+              </select></td>
+          <tr>
+          <td></td>
+          <td style="padding-left: 10px; text-align:center">Type</td>
+          <td style="padding-left: 10px; text-align:center">Precision</td>
+          <td style="padding-left: 50px"></td>
+          <td></td>
+          <td style="padding-left: 10px; text-align:center">Type</td>
+          <td style="padding-left: 10px; text-align:center">Precision</td>
+          </tr>
+        </tr></table>
+      </div>
+
+      
 
       <br>
 
@@ -197,17 +225,18 @@
       <hr>
       <br>
 
+
       <table style="background-color: rgb(218, 165, 236)"><tr>
-        <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+        <td style="text-align:center; padding-right: 30px"><input disabled style="text-align:left; color: black" size="20" style="font-family: monospace" type="text" value="0.0"></td>
         
         <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+        <td style="text-align:left; padding-right: 30px"><input disabled style="text-align:left; color: black" size="10" style="font-family: monospace" type="text" value="00000000"></td>
         
-        <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
+        <td style="text-align:center"><select disabled class="custom-select-sign" style="color: black"><option>+</option><option>-</option></select></td>
         <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-        <td style="text-align:center"><input style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="text-align:center"><input disabled style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
         <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="x2"></td>
-        <td style="text-align:left; padding-bottom: 20px"><input style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+        <td style="text-align:left; padding-bottom: 20px"><input disabled style="text-align:left; color: black" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
       </table></tr>
 
       <br>
@@ -222,52 +251,5 @@
         <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Invalid 0"></th>
       </table>
 
-
-    </center>
-    <div style="height:20em"></div>
-    <center>
-      <p class="info">
-        This is a little calculator intended to help you understand the <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE&nbsp;754</a> standard for floating-point computation.  It is implemented in <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> and should work with recent desktop versions of <a href="https://www.google.com/chrome/">Chrome</a> and <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>.
-        I haven't tested with other browsers.  (And on Chrome it looks
-        a bit ugly because the input boxes are a too wide.)
-      </p>
-      <p class="info">
-        If you enter a floating-point number in one of the three boxes
-        on the left and press the <em>Enter</em> key, you will see the
-        number's bit pattern on the right.  You can enter numbers
-        using the syntax typically accepted in programming languages,
-        for example <code>42</code>, <code>2.345</code>, <code>12E-3</code>, and so on; you can input the values <code>NaN</code>, <code>Inf</code>, and <code>-Inf</code> directly; and you can also enter fractions using the syntax <code>17/23</code>.  Finally, you can use as input bit patterns as shown on the right (the ones starting with <code>0b</code> or <code>0x</code>).
-      </p>
-      <p class="info">
-        Or you can do it the other way around and manipulate the bits on the right.  Once you've pressed <em>Enter</em>,
-        the number to the left will be updated.  In the exponent
-        field, instead of a bit pattern you can also enter a decimal
-        starting with <code>+</code> or&nbsp;<code>-</code>.  (Note
-       that the red digit is the <a href="https://en.wikipedia.org/wiki/Significand#Significands_and_the_hidden_bit"><em>hidden bit</em></a> and can't be changed directly.)
-      </p>
-      <p class="info">
-        Press one of the four buttons to add, subtract, multiply, or
-        divide the two numbers above the buttons and show the result below.
-      </p>
-      <p class="info">
-        The rounding mode used is <a href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules"><em>round to nearest, ties to even</em></a>.
-        The code doesn't distinguish between quiet and signaling <a href="https://en.wikipedia.org/wiki/NaN"><code>NaN</code></a>, i.e. all <code>NaN</code>s are quiet and use the same bit pattern.
-      </p>
-      <p class="info">
-        The IEEE standard defines various binary and decimal formats.  The default format for this page is <em>binary64</em>,
-        but you can use the buttons below to switch to some of the other variants.
-      </p>
-      <center>
-        <button id="sizeButton16" type="button">binary16&nbsp;</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button id="sizeButton32" type="button">binary32&nbsp;</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button id="sizeButton64" type="button">binary64&nbsp;</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button id="sizeButton128" type="button">binary128</button>        
-      </center>
-      <div style="height: 1em"></div>
-      <p class="info" style="font-size: xx-small">Copyright (c) 2016, <a style="font-size: xx-small" href="http://www.weitz.de/">Prof. Dr. Edmund Weitz</a>.&nbsp;<a style="font-size: xx-small" href="http://weitz.de/imprint.html">Impressum, Datenschutzerklärung</a>.</p>
-    </center>
   </body>
 </html>
