@@ -85,16 +85,16 @@
 
       <table  style="background-color: rgb(170, 238, 238)"><tr>
         <th>Operation</th>
-        <td style="padding-left: 50px"><button class="op-button" style="border-color: lightgrey">+</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">-</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">x</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">÷</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">%</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey"><</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">≤</button></td>
-        <td style="padding-left: 50px"><button class="op-button" style="border-color: lightgrey">√</button></td>
-        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">Convert</button></td>
-        <td style="padding-left: 50px"><button class="op-button" style="border-color: lightgrey">Multiply-Add</button></td>
+        <td style="padding-left: 50px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">+</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">-</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">x</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">÷</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">%</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey"><</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeVisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">≤</button></td>
+        <td style="padding-left: 50px"><button class="op-button" onclick="makeInvisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">√</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeInvisible('second-input-table'); makeInvisible('third-input-table')" style="border-color: lightgrey">Convert</button></td>
+        <td style="padding-left: 50px"><button class="op-button" onclick="makeVisible('second-input-table'); makeVisible('third-input-table');" style="border-color: lightgrey">Multiply-Add</button></td>
       </tr></table>
 
       <script>
@@ -121,8 +121,23 @@
             }
           });
         }
+      </script>  
 
-      </script>     
+      <script>
+        function makeVisible(input) {
+          var table = document.getElementById(input);
+          if (table.style.display === "none") {
+            table.style.display = "table";
+          }
+        }
+        function makeInvisible(input) {
+          var table = document.getElementById(input);
+          if (table.style.display !== "none") {
+            table.style.display = "none";
+          }
+        }
+      </script>
+  
 
       <div id="second-input-table" style="display: none">
         <br>
