@@ -85,17 +85,44 @@
 
       <table  style="background-color: rgb(170, 238, 238)"><tr>
         <th>Operation</th>
-        <td style="padding-left: 50px"><button>+</button></td>
-        <td style="padding-left: 10px"><button>-</button></td>
-        <td style="padding-left: 10px"><button>x</button></td>
-        <td style="padding-left: 10px"><button>÷</button></td>
-        <td style="padding-left: 10px"><button>%</button></td>
-        <td style="padding-left: 10px"><button><</button></td>
-        <td style="padding-left: 10px"><button>≤</button></td>
-        <td style="padding-left: 50px"><button>√</button></td>
-        <td style="padding-left: 10px"><button>Convert</button></td>
-        <td style="padding-left: 50px"><button>Multiply-Add</button></td>
+        <td style="padding-left: 50px"><button class="op-button" style="border-color: lightgrey">+</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">-</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">x</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">÷</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">%</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey"><</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">≤</button></td>
+        <td style="padding-left: 50px"><button class="op-button" style="border-color: lightgrey">√</button></td>
+        <td style="padding-left: 10px"><button class="op-button" style="border-color: lightgrey">Convert</button></td>
+        <td style="padding-left: 50px"><button class="op-button" style="border-color: lightgrey">Multiply-Add</button></td>
       </tr></table>
+
+      <script>
+        const opButtons = document.querySelectorAll(".op-button");
+        let selectedOpButton = null;
+
+        for (let i = 0; i < opButtons.length; i++) {
+          const opButton = opButtons[i];
+          const originalColor = window.getComputedStyle(opButton).backgroundColor;
+
+          opButton.addEventListener("click", function() {
+            const newColor = "gray";
+
+            if (selectedOpButton && selectedOpButton !== opButton) {
+              selectedOpButton.style.backgroundColor = originalColor;
+            }
+
+            if (opButton.style.backgroundColor === newColor) {
+              opButton.style.backgroundColor = originalColor;
+              selectedOpButton = null;
+            } else {
+              opButton.style.backgroundColor = newColor;
+              selectedOpButton = opButton;
+            }
+          });
+        }
+
+      </script>     
 
       <div id="second-input-table" style="display: none">
         <br>
