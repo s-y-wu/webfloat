@@ -195,6 +195,7 @@ char parseOp(char *op) {
 
 char parseRound(char *rnd) {
   if      (strcmp(rnd, "RNE") == 0) return softfloat_round_near_even;
+  else if (strcmp(rnd, "RNT") == 0) return softfloat_round_near_maxMag;
   else if (strcmp(rnd, "RZ") == 0)  return softfloat_round_minMag;
   else if (strcmp(rnd, "RP") == 0)  return softfloat_round_max;
   else if (strcmp(rnd, "RM") == 0)  return softfloat_round_min;
@@ -214,7 +215,7 @@ int main(int argc, char *argv[])
     softfloatInit(); 
 
     if (argc < 4 || argc > 7) {
-      printf("Usage: %s x op y [RNE/RZ/RM/RP]  or  x x y + z [RNE/RZ/RM/RP]\n  Example: 0x3f800000 + 0x3fC00000\n  Use x for multiplication\n", argv[0]);
+      printf("Usage: %s x op y [RNE/RNT/RZ/RM/RP]  or  x x y + z [RNE/RNT/RZ/RM/RP]\n  Example: 0x3f800000 + 0x3fC00000\n  Use x for multiplication\n", argv[0]);
       exit(1);
     } else {
       softfloat_roundingMode = softfloat_round_near_even;
@@ -260,6 +261,7 @@ int main(int argc, char *argv[])
             case '-': r = f16_sub(x, y); break;
             case '/': r = f16_div(x, y); break;
             case '%': r = f16_rem(x, y); break;
+            case 's': r = f16_sqrt(x); break;
             default: printf("Unknown op %c\n", op1); exit(1);
           }
           printF16("X", x); printF16("Y", y); 
@@ -274,6 +276,7 @@ int main(int argc, char *argv[])
             case '-': r = f32_sub(x, y); break;
             case '/': r = f32_div(x, y); break;
             case '%': r = f32_rem(x, y); break;
+            case 's': r = f32_sqrt(x); break;
             default: printf("Unknown op %c\n", op1); exit(1);
           }
           printF32("X", x); printF32("Y", y); 
@@ -289,6 +292,7 @@ int main(int argc, char *argv[])
             case '-': r = f64_sub(x, y); break;
             case '/': r = f64_div(x, y); break;
             case '%': r = f64_rem(x, y); break;
+            case 's': r = f64_sqrt(x); break;
             default: printf("Unknown op %c\n", op1); exit(1);
           }
           printF64("X", x); printF64("Y", y); 

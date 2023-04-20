@@ -12,6 +12,7 @@ const translateButtons = {
   '×': 'x',
   '÷': '/',
   '%': '%',
+  '√': 's',
   'Multiply-Add': 'x'
 };
 
