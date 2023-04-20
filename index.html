@@ -52,7 +52,7 @@
   </head>
 
   <body style="background-color: #fbf1c7">
-    <textarea style="display: none" class="emscripten" id="output" rows="8"></textarea>
+    <textarea style="display: true" class="emscripten" id="output" rows="8"></textarea>
     
     <br>
     
@@ -70,7 +70,7 @@
         <td style="text-align:center; padding-right: 30px"><input id="first-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('first-input-decimal', 'arg1', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); runFPCalc()"></td>
         
         <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input id="arg1" class="hexadecimal input-hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
+        <td style="text-align:left; padding-right: 30px"><input id="arg1" class="hexadecimal input-hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg1', 'first-input-decimal', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); runFPCalc()"></td>
         
         <td style="text-align:center"><select disabled id="first-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
         <td><input id="hiddenbit1" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
@@ -107,7 +107,7 @@
           <td style="text-align:center; padding-right: 30px"><input id="second-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('second-input-decimal', 'arg3', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); runFPCalc()"></td>
           
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-          <td style="text-align:left; padding-right: 30px"><input id="arg3" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
+          <td style="text-align:left; padding-right: 30px"><input id="arg3" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg3', 'second-input-decimal', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); runFPCalc()"></td>
           
           <td style="text-align:center"><select disabled id="second-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
           <td><input id="hiddenbit2" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
@@ -124,7 +124,7 @@
           <td style="text-align:center; padding-right: 30px"><input id="third-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('third-input-decimal', 'arg5', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); runFPCalc()"></td>
           
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-          <td style="text-align:left; padding-right: 30px"><input id="arg5" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
+          <td style="text-align:left; padding-right: 30px"><input id="arg5" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg5', 'third-input-decimal', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); runFPCalc()"></td>
           
           <td style="text-align:center"><select disabled id="third-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
           <td><input id="hiddenbit3" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
@@ -227,16 +227,16 @@
       <br>
 
       <table style="background-color: rgb(218, 165, 236)"><tr>
-        <td style="text-align:center; padding-right: 30px"><input disabled style="text-align:left; color: black" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+        <td style="text-align:center; padding-right: 30px"><input id="output-decimal" disabled style="text-align:left; color: black" size="20" style="font-family: monospace" type="text" value="0.0"></td>
         
-        <td><input id="hiddenbit4" disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input class="hexadecimal" disabled style="text-align:left; color: black" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
+        <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
+        <td style="text-align:left; padding-right: 30px"><input id="argOutput" class="hexadecimal" disabled style="text-align:left; color: black" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
         
-        <td style="text-align:center"><select disabled class="custom-select-sign" style="color: black"><option>+</option><option>−</option></select></td>
-        <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-        <td style="text-align:center"><input disabled class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="text-align:center"><select disabled id="output-sign" class="custom-select-sign" style="color: black"><option>+</option><option>−</option></select></td>
+        <td><input disabled id="hiddenbit4" maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
+        <td style="text-align :center"><input disabled id="output-significand" class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
         <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-        <td style="text-align:left; padding-bottom: 20px"><input disabled class="exponent" style="text-align:left; color: black" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+        <td style="text-align:left; padding-bottom: 20px"><input disabled id="output-exponent" class="exponent" style="text-align:left; color: black" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
       </table></tr>
 
       <br>
@@ -258,6 +258,7 @@
   <script src="width.js"></script>
   <script src="main.js"></script>
   <script src="dec2hex.js"></script>
+  <script src="hex2dec.js"></script>
   <script async type="text/javascript" src="index.js"></script>
 
   </body>

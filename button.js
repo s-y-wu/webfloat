@@ -1,7 +1,10 @@
 const opButtons = document.querySelectorAll(".op-button");
-let selectedOpButton = null;
+let selectedOpButton = opButtons[0];
 let selectedOpButtonIndex = 0;
 let multiplyAddIndex = opButtons.length - 1;
+const newColor = "gray";
+
+selectedOpButton.style.backgroundColor = newColor
 
 const translateButtons = {
   '+': '+',
@@ -18,7 +21,6 @@ for (let i = 0; i < opButtons.length; i++) {
 
 
   opButton.addEventListener("click", function() {
-    const newColor = "gray";
 
     if (selectedOpButton && selectedOpButton !== opButton) {
       selectedOpButton.style.backgroundColor = originalColor;
