@@ -52,120 +52,7 @@
   </head>
 
   <body style="background-color: #fbf1c7">
-    <input class="emscripten" id="arg1" type="text" value="0x3f800000">
-    <div class="emscripten" id="op-buttons">
-      <button class="op-button" id="add-button" style="background-color: gray;">+</button>
-      <button class="op-button" id="subtract-button">-</button>
-      <button class="op-button" id="multiply-button">x</button>
-      <button class="op-button" id="divide-button">/</button>
-      <button class="op-button" id="modulo-button">%</button>
-    </div>
-
-    <input class="emscripten" id="arg3" type="text" value="0x3fC00000">
-    <textarea class="emscripten" id="output" rows="8"></textarea>
-
-    <script type='text/javascript'>
-
-      // var statusElement = document.getElementById('status');
-      // var progressElement = document.getElementById('progress');
-
-      // Add event listeners to each input field
-      var arg1 = document.getElementById('arg1');
-      var arg2 = '+';
-      var arg3 = document.getElementById('arg3');
-      var addButton = document.getElementById('add-button');
-      var subButton = document.getElementById('subtract-button');
-      var mulButton = document.getElementById('multiply-button');
-      var divButton = document.getElementById('divide-button');
-      var modButton = document.getElementById('modulo-button');
-
-      var Module = {
-        preRun: [],
-        arguments: [document.getElementById('arg1').value, arg2, document.getElementById('arg3').value],
-        postRun: [],
-        print: (function() {
-          var element = document.getElementById('output');
-          if (element) element.value = ''; // clear browser cache
-          return function(text) {
-            if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-            // These replacements are necessary if you render to raw HTML
-            //text = text.replace(/&/g, "&amp;");
-            //text = text.replace(/</g, "&lt;");
-            //text = text.replace(/>/g, "&gt;");
-            //text = text.replace('\n', '<br>', 'g');
-            console.log(text);
-            if (element) {
-              element.value += text + "\n";
-              element.scrollTop = element.scrollHeight; // focus on bottom
-            }
-          };
-        })(),
-        setStatus: function(text) {},
-        totalDependencies: 0,
-        monitorRunDependencies: function(left) {
-          this.totalDependencies = Math.max(this.totalDependencies, left);
-          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-        }
-      };
-
-      function updateArgumentsAndRun() {
-        Module.arguments = [arg1.value, arg2, arg3.value];
-        Module.print("\n\n\n");
-        Module.callMain(Module.arguments);
-      }
-
-      arg1.addEventListener('input', updateArgumentsAndRun);
-      arg3.addEventListener('input', updateArgumentsAndRun);
-
-      var clicked = 'gray'
-      function clearButtons() {
-        var unclicked = ''
-        addButton.style.backgroundColor = unclicked;
-        subButton.style.backgroundColor = unclicked;
-        mulButton.style.backgroundColor = unclicked;
-        divButton.style.backgroundColor = unclicked;
-        modButton.style.backgroundColor = unclicked;
-      }
-
-      addButton.addEventListener('click', function() {
-        arg2 = '+';
-        updateArgumentsAndRun();
-        clearButtons();
-        addButton.style.backgroundColor = clicked;
-      });
-
-      subButton.addEventListener('click', function() {
-        arg2 = '-';
-        updateArgumentsAndRun();
-        clearButtons();
-        subButton.style.backgroundColor = clicked;
-      });
-
-      mulButton.addEventListener('click', function() {
-        arg2 = 'x';
-        updateArgumentsAndRun();
-        clearButtons();
-        mulButton.style.backgroundColor = clicked;
-      });
-
-      divButton.addEventListener('click', function() {
-        arg2 = '/';
-        updateArgumentsAndRun();
-        clearButtons();
-        divButton.style.backgroundColor = clicked;
-      });
-
-      modButton.addEventListener('click', function() {
-        arg2 = '%';
-        updateArgumentsAndRun();
-        clearButtons();
-        modButton.style.backgroundColor = clicked;
-      });
-      
-
-    </script>
-    <script async type="text/javascript" src="index.js"></script>
-
+    <textarea style="display: none" class="emscripten" id="output" rows="8"></textarea>
     
     <br>
     
@@ -180,16 +67,16 @@
         <th colspan=5>Binary Scientific</th>
 
         </tr><tr>
-        <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+        <td style="text-align:center; padding-right: 30px"><input id="first-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('first-input-decimal', 'arg1', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); runFPCalc()"></td>
         
         <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input class="hexadecimal input-hexadecimal" style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+        <td style="text-align:left; padding-right: 30px"><input id="arg1" class="hexadecimal input-hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
         
-        <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
-        <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:left" type="text" value="0."></td>
-        <td style="text-align:center"><input class="significand input-significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="text-align:center"><select disabled id="first-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
+        <td><input id="hiddenbit1" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
+        <td style="text-align:center"><input disabled id="first-input-significand" class="significand input-significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
         <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-        <td style="text-align:left; padding-bottom: 20px"><input class="exponent input-exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+        <td style="text-align:left; padding-bottom: 20px"><input disabled id="first-input-exponent" class="exponent input-exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
       </tr><tr>
         <th colspan=3></th>
         <td style="text-align:center" colspan=2>Sign</td>
@@ -202,31 +89,31 @@
 
       <table  style="background-color: rgb(170, 238, 238)"><tr>
         <th>Operation</th>
-        <td style="padding-left: 50px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey" id = "add-button">+</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">-</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">x</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">÷</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">%</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey"><</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">≤</button></td>
-        <td style="padding-left: 50px"><button class="op-button" onclick="changeAllWidths(); makeOneTalbeVisible()" style="border-color: lightgrey">√</button></td>
-        <td style="padding-left: 10px"><button class="op-button" onclick="changeConvertInput(); makeOneTalbeVisible(); makeInvisible('input-precision-table'); makeVisible('convert-table')" style="border-color: lightgrey">Convert</button></td>
-        <td style="padding-left: 50px"><button class="op-button" onclick="changeAllWidths(); makeThreeTablesVisible()" style="border-color: lightgrey">Multiply-Add</button></td>
+        <td style="padding-left: 50px"><button class="op-button" onclick="makeTwoTablesVisible()" style="border-color: lightgrey" id = "add-button">+</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeTwoTablesVisible()" style="border-color: lightgrey">−</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeTwoTablesVisible()" style="border-color: lightgrey">×</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeTwoTablesVisible()" style="border-color: lightgrey">÷</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="makeTwoTablesVisible()" style="border-color: lightgrey">%</button></td>
+        <!-- <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey"><</button></td>
+        <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">≤</button></td> -->
+        <td style="padding-left: 50px"><button class="op-button" onclick="makeOneTalbeVisible()" style="border-color: lightgrey">√</button></td>
+        <!-- <td style="padding-left: 10px"><button class="op-button" onclick="changeConvertInput(); makeOneTalbeVisible(); makeInvisible('input-precision-table'); makeVisible('convert-table')" style="border-color: lightgrey">Convert</button></td> -->
+        <td style="padding-left: 50px"><button class="op-button" onclick="makeThreeTablesVisible()" style="border-color: lightgrey">Multiply-Add</button></td>
       </tr></table>
 
-      <div id="second-input-table" style="display: none">
+      <div id="second-input-table" style="display: true">
         <br>
         <table style="background-color: rgb(197, 248, 187)"><tr>
-          <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+          <td style="text-align:center; padding-right: 30px"><input id="second-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('second-input-decimal', 'arg3', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); runFPCalc()"></td>
           
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-          <td style="text-align:left; padding-right: 30px"><input class="hexadecimal" style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+          <td style="text-align:left; padding-right: 30px"><input id="arg3" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
           
-          <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
-          <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-          <td style="text-align:center"><input class="significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+          <td style="text-align:center"><select disabled id="second-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
+          <td><input id="hiddenbit2" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
+          <td style="text-align:center"><input disabled id="second-input-significand" class="significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
           <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-          <td style="text-align:left; padding-bottom: 20px"><input class="exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+          <td style="text-align:left; padding-bottom: 20px"><input disabled id="second-input-exponent" class="exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
         </table></tr>
       </div>
       
@@ -234,16 +121,16 @@
       <div id="third-input-table" style="display: none">
         <br>
         <table style="background-color: rgb(197, 248, 187)"><tr>
-          <td style="text-align:center; padding-right: 30px"><input style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0"></td>
+          <td style="text-align:center; padding-right: 30px"><input id="third-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('third-input-decimal', 'arg5', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); runFPCalc()"></td>
           
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-          <td style="text-align:left; padding-right: 30px"><input class="hexadecimal" style="text-align:left" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+          <td style="text-align:left; padding-right: 30px"><input id="arg5" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
           
-          <td style="text-align:center"><select class="custom-select-sign"><option>+</option><option>-</option></select></td>
-          <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-          <td style="text-align:center"><input class="significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+          <td style="text-align:center"><select disabled id="third-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
+          <td><input id="hiddenbit3" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
+          <td style="text-align:center"><input disabled id="third-input-significand" class="significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
           <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-          <td style="text-align:left; padding-bottom: 20px"><input class="exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+          <td style="text-align:left; padding-bottom: 20px"><input disabled id="third-input-exponent" class="exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
         </table></tr>
       </div>
 
@@ -253,12 +140,12 @@
           <th>Input</th>
           <td style="padding-left: 10px">
 
-            <select class="custom-select-precision" id="input-only-precision-select" onchange="changeAllWidths()">
+            <select class="custom-select-precision" id="input-only-precision-select" onchange="changeAllWidths(); processAllDecimals(); runFPCalc(); ">
             <option value="half">Half (16 bit)</option>
             <option value="single">Single (32 bit)</option>
             <option value="double" selected>Double (64 bit)</option>
-            <option value="extended">Extended (80 bit)</option>
-            <option value="quad">Quad (128 bit)</option>
+            <!-- <option value="extended">Extended (80 bit)</option>
+            <option value="quad">Quad (128 bit)</option> -->
             </select>
           </td><tr>
           <td></td>
@@ -284,7 +171,7 @@
             </select>
           </td>
           <td style="padding-left: 10px">
-            <select class="custom-select-precision" id="convert-table-input-precision" onchange="changeConvertInput()">
+            <select class="custom-select-precision" id="convert-table-input-precision" onchange="changeConvertInput(); runFPCalc()">
             <option>Half (16 bit)</option>
             <option>Single (32 bit)</option>
             <option>Double (64 bit)</option>
@@ -325,12 +212,12 @@
       <table style="background-color: rgb(218, 165, 236)">
         <th>Rounding Mode</th>
         <td style="padding-left: 10px">
-          <select class="custom-select-precision">
-          <option>Nearest Ties Even</option>
-          <option>Nearest Ties Away</option>
-          <option>Zero</option>
-          <option>+∞</option>
-          <option>-∞</option>
+          <select id = "rounding-mode" class="custom-select-precision">
+          <option value="RNE">Nearest Ties Even</option>
+          <option value="RNE">Nearest Ties Away</option>
+          <option value="RZ">Zero</option>
+          <option value="RP">+∞</option>
+          <option value="RM">−∞</option>
           </select>
         </td>
       </table>
@@ -342,10 +229,10 @@
       <table style="background-color: rgb(218, 165, 236)"><tr>
         <td style="text-align:center; padding-right: 30px"><input disabled style="text-align:left; color: black" size="20" style="font-family: monospace" type="text" value="0.0"></td>
         
-        <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
-        <td style="text-align:left; padding-right: 30px"><input class="hexadecimal" disabled style="text-align:left; color: black" size="10" style="font-family: monospace" type="text" value="00000000"></td>
+        <td><input id="hiddenbit4" disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
+        <td style="text-align:left; padding-right: 30px"><input class="hexadecimal" disabled style="text-align:left; color: black" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000"></td>
         
-        <td style="text-align:center"><select disabled class="custom-select-sign" style="color: black"><option>+</option><option>-</option></select></td>
+        <td style="text-align:center"><select disabled class="custom-select-sign" style="color: black"><option>+</option><option>−</option></select></td>
         <td><input disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
         <td style="text-align:center"><input disabled class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
         <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
@@ -363,133 +250,15 @@
         <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Underflow 0"></th>
         <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Invalid 0"></th>
       </table>
-
       
-
-      <script>
-        const opButtons = document.querySelectorAll(".op-button");
-        let selectedOpButton = null;
-
-        for (let i = 0; i < opButtons.length; i++) {
-          const opButton = opButtons[i];
-          const originalColor = window.getComputedStyle(opButton).backgroundColor;
-
-          opButton.addEventListener("click", function() {
-            const newColor = "gray";
-
-            if (selectedOpButton && selectedOpButton !== opButton) {
-              selectedOpButton.style.backgroundColor = originalColor;
-            }
-
-            if (opButton.style.backgroundColor === newColor) {
-              opButton.style.backgroundColor = originalColor;
-              selectedOpButton = null;
-            } else {
-              opButton.style.backgroundColor = newColor;
-              selectedOpButton = opButton;
-            }
-          });
-        }
-      </script>  
-
-      <script>
-        function makeVisible(input) {
-          var table = document.getElementById(input);
-          if (table.style.display === "none") {
-            table.style.display = "table";
-          }
-        }
-        function makeInvisible(input) {
-          var table = document.getElementById(input);
-          if (table.style.display !== "none") {
-            table.style.display = "none";
-          }
-        }
-
-        function makeAllOptionalInvisible() {makeInvisible('second-input-table'); makeInvisible('third-input-table'); makeInvisible('convert-table');};
-        function makeOneTalbeVisible() {makeAllOptionalInvisible(); makeVisible('input-precision-table')};
-        function makeTwoTablesVisible() {makeAllOptionalInvisible(); makeVisible('second-input-table'); makeVisible('input-precision-table')};
-        function makeThreeTablesVisible() {makeInvisible('convert-table'); makeVisible('second-input-table'); makeVisible('third-input-table'); makeVisible('input-precision-table')};
-      </script>
-
-      <script>
-        function changeInputWidths(significand_class, exponent_class, hexadecimal_class, dropdown_id) {
-          const significands = document.querySelectorAll(significand_class);
-          const exponents = document.querySelectorAll(exponent_class);
-          const hexadecimals = document.querySelectorAll(hexadecimal_class);
-          var dropdown = document.getElementById(dropdown_id);
-          var selectedIndex = dropdown.selectedIndex;
-
-          for (let i = 0; i < significands.length; i++) {
-            var significand = significands[i];
-            var exponent = exponents[i];
-            var hexadecimal = hexadecimals[i];
-            if (selectedIndex == 0) {
-              hexadecimal.size = 3;
-              hexadecimal.maxLength = 4;
-              hexadecimal.value = "0000"
-              significand.size = 10;
-              significand.maxLength = 10;
-              significand.value = "0000000000"
-              exponent.size = 4;
-              exponent.maxLength = 5;
-              exponent.value = "00000"
-            }
-            if (selectedIndex == 1) {
-              hexadecimal.size = 8;
-              hexadecimal.maxLength = 8;
-              hexadecimal.value = "00000000"
-              significand.size = 27;
-              significand.maxLength = 23;
-              significand.value = "00000000000000000000000"
-              exponent.size = 8;
-              exponent.maxLength = 0;
-              exponent.value = "00000000"
-            }
-            if (selectedIndex == 2) {
-              hexadecimal.size = 18;
-              hexadecimal.maxLength = 16;
-              hexadecimal.value = "0000000000000000"
-              significand.size = 63;
-              significand.maxLength = 52;
-              significand.value = "0000000000000000000000000000000000000000000000000000"
-              exponent.size = 12;
-              exponent.maxLength = 11;
-              exponent.value = "00000000000"
-            }
-            if (selectedIndex == 3) {
-              hexadecimal.size = 23;
-              hexadecimal.maxLength = 20;
-              hexadecimal.value = "00000000000000000000"
-              significand.size = 78;
-              significand.maxLength = 64;
-              significand.value = "0000000000000000000000000000000000000000000000000000000000000000"
-              exponent.size = 15;
-              exponent.maxLength = 15;
-              exponent.value = "000000000000000"
-            }
-            if (selectedIndex == 4) {
-              hexadecimal.size = 38;
-              hexadecimal.maxLength = 32;
-              hexadecimal.value = "00000000000000000000000000000000"
-              significand.size = 125;
-              significand.maxLength = 112;
-              significand.value = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-              exponent.size = 15;
-              exponent.maxLength = 15;
-              exponent.value = "000000000000000"
-            }
-          }
-        }
-
-      function changeAllWidths() {changeInputWidths('.significand', '.exponent', '.hexadecimal', 'input-only-precision-select')};
-      function changeConvertInput() {changeInputWidths('.input-significand', '.input-exponent', '.input-hexadecimal', 'convert-table-input-precision')};
-      </script>
-
-      
-
   </center>
-  
+
+  <script src="button.js"></script>  
+  <script src="visible.js"></script>
+  <script src="width.js"></script>
+  <script src="main.js"></script>
+  <script src="dec2hex.js"></script>
+  <script async type="text/javascript" src="index.js"></script>
 
   </body>
 </html>
