@@ -52,7 +52,7 @@
   </head>
 
   <body style="background-color: #fbf1c7">
-    <textarea style="display: true" class="emscripten" id="output" rows="8"></textarea>
+    <textarea style="display: none" class="emscripten" id="output" rows="8"></textarea>
     
     <br>
     
@@ -96,7 +96,7 @@
         <td style="padding-left: 10px"><button class="op-button" onclick="makeTwoTablesVisible()" style="border-color: lightgrey">%</button></td>
         <!-- <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey"><</button></td>
         <td style="padding-left: 10px"><button class="op-button" onclick="changeAllWidths(); makeTwoTablesVisible()" style="border-color: lightgrey">≤</button></td> -->
-        <td style="padding-left: 50px"><button class="op-button" onclick="makeOneTalbeVisible()" style="border-color: lightgrey">√</button></td>
+        <!-- <td style="padding-left: 50px"><button class="op-button" onclick="makeOneTalbeVisible()" style="border-color: lightgrey">√</button></td> -->
         <!-- <td style="padding-left: 10px"><button class="op-button" onclick="changeConvertInput(); makeOneTalbeVisible(); makeInvisible('input-precision-table'); makeVisible('convert-table')" style="border-color: lightgrey">Convert</button></td> -->
         <td style="padding-left: 50px"><button class="op-button" onclick="makeThreeTablesVisible()" style="border-color: lightgrey">Multiply-Add</button></td>
       </tr></table>
@@ -234,7 +234,7 @@
         
         <td style="text-align:center"><select disabled id="output-sign" class="custom-select-sign" style="color: black"><option>+</option><option>−</option></select></td>
         <td><input disabled id="hiddenbit4" maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-        <td style="text-align :center"><input disabled id="output-significand" class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="text-align:center"><input disabled id="output-significand" class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
         <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
         <td style="text-align:left; padding-bottom: 20px"><input disabled id="output-exponent" class="exponent" style="text-align:left; color: black" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
       </table></tr>
@@ -243,12 +243,15 @@
 
       <table style="background-color: rgb(255, 205, 162)">
         <th style="text-align:center; padding-right: 30px">Flags</th>
-        <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Inexact 0"></th>
-        <!-- <td style="padding-right: 10px"></td> -->
-        <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="DivZero 0"></th>
-        <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Overflow 0"></th>
-        <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Underflow 0"></th>
-        <th><input disabled size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Invalid 0"></th>
+        <th><input disabled id="inexact" size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Inexact 0"></th>
+        <td style="padding-right: 10px"></td>
+        <th><input disabled id="divzero" size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="DivZero 0"></th>
+        <td style="padding-right: 10px"></td>
+        <th><input disabled id="overflow" size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Overflow 0"></th>
+        <td style="padding-right: 10px"></td>
+        <th><input disabled id="underflow" size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Underflow 0"></th>
+        <td style="padding-right: 10px"></td>
+        <th><input disabled id="invalid" size="12" style="font-family: monospace; color: rgb(0, 0, 0); text-align:center; font-weight: bold;" type="text" value="Invalid 0"></th>
       </table>
       
   </center>

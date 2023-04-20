@@ -20,18 +20,20 @@ function hexToFloat(hexString) {
   
   // Converts half-precision (16-bit) IEEE 754 hexadecimal representation to decimal
   function halfPrecisionToDecimal(hexString) {
-    const uint16 = parseInt(hexString, 16);
-    const sign = (uint16 & 0x8000) >> 15;
-    const exponent = (uint16 & 0x7c00) >> 10;
-    const fraction = uint16 & 0x03ff;
-  
-    const float32Array = new Float32Array(1);
-    const uint16Array = new Uint16Array(float32Array.buffer);
-  
-    uint16Array[0] = (sign << 15) | (exponent << 10) | fraction;
-    return float32Array[0];
+      const half = parseInt(hexString, 16);
+      const sign = (half & 0x8000) << 16;
+      let exponent = (half & 0x7c00) >> 10;
+      let fraction = half & 0x03ff;
+
+      exponent = (exponent - 15 + 127) & 0xff;
+
+      const float32Array = new Float32Array(1);
+      const uint32Array = new Uint32Array(float32Array.buffer);
+      uint32Array[0] = sign | (exponent << 23) | (fraction << 13);
+
+      return float32Array[0];
   }
-  
+    
   // Converts single-precision (32-bit) IEEE 754 hexadecimal representation to decimal
   function singlePrecisionToDecimal(hexString) {
     return hexToFloat(hexString);

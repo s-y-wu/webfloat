@@ -146,7 +146,7 @@ void printFlags(void) {
   int OF = (softfloat_exceptionFlags >> 2) % 2;
   int DZ = (softfloat_exceptionFlags >> 3) % 2;
   int NV = (softfloat_exceptionFlags >> 4) % 2;
-  printf ("exceptions: Inexact %d Underflow %d Overflow %d DivideZero %d Invalid %d\n", 
+  printf ("exceptions:|Inexact %d|Underflow %d|Overflow %d|DivideZero %d|Invalid %d\n", 
           NX, UF, OF, DZ, NV);
 }
 

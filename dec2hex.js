@@ -17,20 +17,30 @@ function doubleToHex(d) {
     return int64_high.toString(16).padStart(8, '0') + int64_low.toString(16).padStart(8, '0');
 }
 
-// Converts decimal string to half-precision (16-bit) IEEE 754 hexadecimal representation
+  // Converts decimal string to half-precision (16-bit) IEEE 754 hexadecimal representation
 function decimalToHalfPrecision(decimalString) {
-    const decimal = parseFloat(decimalString);
+    const float = parseFloat(decimalString);
     const float32Array = new Float32Array(1);
-    const uint16Array = new Uint16Array(float32Array.buffer);
-
-    float32Array[0] = decimal;
-    const sign = (uint16Array[0] & 0x8000) >> 15;
-    const exponent = (uint16Array[0] & 0x7c00) >> 10;
-    const fraction = uint16Array[0] & 0x3ff;
-
-    const half = (sign << 15) | (exponent << 10) | fraction;
+    const uint32Array = new Uint32Array(float32Array.buffer);
+    float32Array[0] = float;
+  
+    const sign = (uint32Array[0] & 0x80000000) >> 16;
+    let exponent = (uint32Array[0] & 0x7f800000) >> 23;
+    let fraction = uint32Array[0] & 0x007fffff;
+  
+    exponent -= 127;
+    exponent += 15;
+  
+    if (exponent >= 31) {
+      exponent = 31;
+      fraction = 0;
+    } else if (exponent <= 0) {
+      exponent = 0;
+    }
+  
+    const half = sign | (exponent << 10) | (fraction >> 13);
     return half.toString(16).padStart(4, '0');
-}
+  }
 
 // Converts decimal string to single-precision (32-bit) IEEE 754 hexadecimal representation
 function decimalToSinglePrecision(decimalString) {

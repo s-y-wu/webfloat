@@ -37,14 +37,27 @@ var Module = {
         } else if (text.startsWith('Y:')) {
             console.log(text);
         } else if (text.startsWith('exception')) {
-            console.log(text);
+            var splitExceptionArray = text.split('|');
+            const flags_id = ["exception-label", "inexact", "divzero", "overflow", "underflow", "invalid"]
+            for (let i = 1; i < splitExceptionArray.length; i++) {
+                console.log(flags_id[i])
+                var flag_element = document.getElementById(flags_id[i]);
+                flag_element.value = splitExceptionArray[i]
+                if (flag_element.value.includes('1')) {
+                    flag_element.style.color = "red"
+                } else {
+                    flag_element.style.color = "black"
+                }
+                
+            }
+            
         } else if (text.startsWith('0x') || text.startsWith('result')) {
             var splitArray = text.split(": ");
             splitArray = splitArray[1].split(" = ");
             var spacedHex = splitArray[0];
             var cleanHex = spacedHex.replace(/_/g, '');
             cleanHex = cleanHex.replace(/0x([0-9a-fA-F]{4})/, '$1');
-            
+
             var hex_id = document.getElementById('argOutput');
             hex_id.value = cleanHex;
             processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
