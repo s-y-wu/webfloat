@@ -40,7 +40,6 @@ var Module = {
             var splitExceptionArray = text.split('|');
             const flags_id = ["exception-label", "inexact", "divzero", "overflow", "underflow", "invalid"]
             for (let i = 1; i < splitExceptionArray.length; i++) {
-                console.log(flags_id[i])
                 var flag_element = document.getElementById(flags_id[i]);
                 flag_element.value = splitExceptionArray[i]
                 if (flag_element.value.includes('1')) {
@@ -61,6 +60,8 @@ var Module = {
             var hex_id = document.getElementById('argOutput');
             hex_id.value = cleanHex;
             processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
+            var dec_id = document.getElementById('output-decimal');
+            dec_id.value = splitArray[1];
         };
 
         if (element) {
