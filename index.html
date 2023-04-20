@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Emscripten-Generated Code</title>
+    <title>WebFloat</title>
     <style>
       .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
       textarea.emscripten { font-family: monospace; width: 80%; }
@@ -72,11 +72,11 @@
         <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
         <td style="text-align:left; padding-right: 30px"><input id="arg1" class="hexadecimal input-hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg1', 'first-input-decimal', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); runFPCalc()"></td>
         
-        <td style="text-align:center"><select disabled id="first-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
+        <td style="text-align:center"><select disabled id="first-input-sign" class="custom-select-sign" style="color: black;"><option value="+">+</option><option value="-">−</option></select></td>
         <td><input id="hiddenbit1" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-        <td style="text-align:center"><input disabled id="first-input-significand" class="significand input-significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+        <td style="text-align:center"><input disabled id="first-input-significand" class="significand input-significand" style="text-align:left; color: black;" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
         <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-        <td style="text-align:left; padding-bottom: 20px"><input disabled id="first-input-exponent" class="exponent input-exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+        <td style="text-align:left; padding-bottom: 20px"><input disabled id="first-input-exponent" class="exponent input-exponent" style="text-align:left; color: black;" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
       </tr><tr>
         <th colspan=3></th>
         <td style="text-align:center" colspan=2>Sign</td>
@@ -109,11 +109,11 @@
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
           <td style="text-align:left; padding-right: 30px"><input id="arg3" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg3', 'second-input-decimal', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); runFPCalc()"></td>
           
-          <td style="text-align:center"><select disabled id="second-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
+          <td style="text-align:center"><select disabled id="second-input-sign" class="custom-select-sign" style="color: black"><option value="+">+</option><option value="-">−</option></select></td>
           <td><input id="hiddenbit2" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-          <td style="text-align:center"><input disabled id="second-input-significand" class="significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+          <td style="text-align:center"><input disabled id="second-input-significand" class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
           <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-          <td style="text-align:left; padding-bottom: 20px"><input disabled id="second-input-exponent" class="exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+          <td style="text-align:left; padding-bottom: 20px"><input disabled id="second-input-exponent" class="exponent" style="text-align:left; color: black" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
         </table></tr>
       </div>
       
@@ -126,11 +126,11 @@
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
           <td style="text-align:left; padding-right: 30px"><input id="arg5" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg5', 'third-input-decimal', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); runFPCalc()"></td>
           
-          <td style="text-align:center"><select disabled id="third-input-sign" class="custom-select-sign"><option value="+">+</option><option value="-">−</option></select></td>
+          <td style="text-align:center"><select disabled id="third-input-sign" class="custom-select-sign" style="color: black"><option value="+">+</option><option value="-">−</option></select></td>
           <td><input id="hiddenbit3" disabled maxlength="2" size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0."></td>
-          <td style="text-align:center"><input disabled id="third-input-significand" class="significand" style="text-align:left" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
+          <td style="text-align:center"><input disabled id="third-input-significand" class="significand" style="text-align:left; color: black" maxlength="52" size="63" style="font-family: monospace" type="text" value="0000000000000000000000000000000000000000000000000000"></td>
           <td><input disabled size="3" style="font-family: monospace; color: blue; text-align:right" type="text" value="× 2"></td>
-          <td style="text-align:left; padding-bottom: 20px"><input disabled id="third-input-exponent" class="exponent" style="text-align:left" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
+          <td style="text-align:left; padding-bottom: 20px"><input disabled id="third-input-exponent" class="exponent" style="text-align:left; color: black" maxlength="11" size="12" style="font-family: monospace" type="text" value="00000000000"></td> 
         </table></tr>
       </div>
 
