@@ -43,7 +43,18 @@ function hexToFloat(hexString) {
   function doublePrecisionToDecimal(hexString) {
     return hexToDouble(hexString);
   }
-  
+
+
+function makeOutputAllNaN() {
+    var hex_id = document.getElementById('argOutput');
+    var dec_id = document.getElementById('output-decimal');
+    var significand_id = document.getElementById('output-significand');
+    var exponent_id = document.getElementById('output-exponent');
+    hex_id.value = NaN;
+    dec_id.value = NaN;
+    significand_id.value = NaN;
+    exponent_id.value = NaN;
+}
   
 function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignificandID, theirExponentID, theirHiddenBitID) {
     var hex_id = document.getElementById(whoCalled);
@@ -55,7 +66,17 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
     var hidden_bit_id = document.getElementById(theirHiddenBitID);
     var binary;
 
+    if (!(/^[0-9A-Fa-f]+$/.test(hex_id.value))) {
+        hex_id.value = NaN;
+        dec_id.value = NaN;
+        significand_id.value = NaN;
+        exponent_id.value = NaN;
+        makeOutputAllNaN();
+        return
+    }
+
     if (precision_id.value === "half") {
+        hex_id.value = hex_id.value.padEnd(4, "0");
         dec_id.value = halfPrecisionToDecimal(hex_id.value); 
         binary = hexToBinary(hex_id.value);
         if (binary.slice(0, 1) === '0')
@@ -68,6 +89,7 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
     };
 
     if (precision_id.value === "single") {
+        hex_id.value = hex_id.value.padEnd(8, "0");
         dec_id.value = singlePrecisionToDecimal(hex_id.value);
         binary = hexToBinary(hex_id.value);
         if (binary.slice(0, 1) === '0')
@@ -81,6 +103,7 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
     
 
     if (precision_id.value === "double") { 
+        hex_id.value = hex_id.value.padEnd(16, "0");
         dec_id.value = doublePrecisionToDecimal(hex_id.value);
         binary = hexToBinary(hex_id.value);
         if (binary.slice(0, 1) === '0')

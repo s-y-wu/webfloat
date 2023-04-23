@@ -74,6 +74,15 @@ function processDecimal(whoCalled, theirHexID, theirSignID, theirSignificandID, 
     var hidden_bit_id = document.getElementById(theirHiddenBitID);
     var binary;
 
+    if (isNaN(parseFloat(dec_id.value))) {
+        hex_id.value = NaN;
+        dec_id.value = NaN;
+        significand_id.value = NaN;
+        exponent_id.value = NaN;
+        makeOutputAllNaN();
+        return
+    }
+
     if (precision_id.value === "half") {
         hex_id.value = decimalToHalfPrecision(dec_id.value); 
         binary = hexToBinary(hex_id.value);

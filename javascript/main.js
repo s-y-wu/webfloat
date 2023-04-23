@@ -51,17 +51,31 @@ var Module = {
             }
             
         } else if (text.startsWith('0x') || text.startsWith('result')) {
+            var hex_id = document.getElementById('argOutput');
+            var dec_id = document.getElementById('output-decimal');
+
             var splitArray = text.split(": ");
             splitArray = splitArray[1].split(" = ");
+
+            dec_id.value = splitArray[1];
+
             var spacedHex = splitArray[0];
             var cleanHex = spacedHex.replace(/_/g, '');
             cleanHex = cleanHex.replace(/0x([0-9a-fA-F]{4})/, '$1');
-
-            var hex_id = document.getElementById('argOutput');
-            hex_id.value = cleanHex;
+            hex_id.value = cleanHex
             processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
-            var dec_id = document.getElementById('output-decimal');
-            dec_id.value = splitArray[1];
+  
+            var conversion = {
+                "fe00": "7e00",
+                "ffc00000": "7fc00000",
+                "fff8000000000000": "7ff8000000000000"
+            }
+            if (cleanHex === "fe00" | cleanHex === "ffc00000" | cleanHex === "fff8000000000000") {
+                console.log(Object.keys(conversion));
+                hex_id.value = conversion[cleanHex];
+                processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
+                dec_id.value = NaN;
+            }
         };
 
         if (element) {
