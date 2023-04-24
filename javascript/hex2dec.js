@@ -5,35 +5,38 @@ function hexToFloat(hexString) {
     const view = new DataView(buffer);
     view.setUint32(0, int32);
     return view.getFloat32(0);
-  }
+}
   
-  // Helper function to convert a hexadecimal representation to a double
-  function hexToDouble(hexString) {
-    const int64_high = parseInt(hexString.slice(0, 8), 16);
-    const int64_low = parseInt(hexString.slice(8), 16);
-    const buffer = new ArrayBuffer(8);
-    const view = new DataView(buffer);
-    view.setUint32(0, int64_high);
-    view.setUint32(4, int64_low);
-    return view.getFloat64(0);
-  }
+// Helper function to convert a hexadecimal representation to a double
+function hexToDouble(hexString) {
+const int64_high = parseInt(hexString.slice(0, 8), 16);
+const int64_low = parseInt(hexString.slice(8), 16);
+const buffer = new ArrayBuffer(8);
+const view = new DataView(buffer);
+view.setUint32(0, int64_high);
+view.setUint32(4, int64_low);
+return view.getFloat64(0);
+}
   
-  // Converts half-precision (16-bit) IEEE 754 hexadecimal representation to decimal
-  function halfPrecisionToDecimal(hexString) {
-      const half = parseInt(hexString, 16);
-      const sign = (half & 0x8000) << 16;
-      let exponent = (half & 0x7c00) >> 10;
-      let fraction = half & 0x03ff;
-
+// Converts half-precision (16-bit) IEEE 754 hexadecimal representation to decimal
+function halfPrecisionToDecimal(hexString) {
+    const half = parseInt(hexString, 16);
+    const sign = (half & 0x8000) << 16;
+    let exponent = (half & 0x7c00) >> 10;
+    let fraction = half & 0x03ff;
+  
+    if (exponent !== 0 || fraction !== 0) {
       exponent = (exponent - 15 + 127) & 0xff;
-
-      const float32Array = new Float32Array(1);
-      const uint32Array = new Uint32Array(float32Array.buffer);
-      uint32Array[0] = sign | (exponent << 23) | (fraction << 13);
-
-      return float32Array[0];
+    }
+  
+    const float32Array = new Float32Array(1);
+    const uint32Array = new Uint32Array(float32Array.buffer);
+    uint32Array[0] = sign | (exponent << 23) | (fraction << 13);
+  
+    return float32Array[0];
   }
-    
+  
+
   // Converts single-precision (32-bit) IEEE 754 hexadecimal representation to decimal
   function singlePrecisionToDecimal(hexString) {
     return hexToFloat(hexString);
@@ -120,4 +123,10 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
     } else {
         hidden_bit_id.value = "0."
     }
+}
+
+function processAllHexadecimals(){
+    processHexadecimal('arg1', 'first-input-decimal', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1');
+    processHexadecimal('arg3', 'second-input-decimal', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2');
+    processHexadecimal('arg5', 'third-input-decimal', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3');
 }

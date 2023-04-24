@@ -67,7 +67,7 @@
         <th colspan=5>Binary Scientific</th>
 
         </tr><tr>
-        <td style="text-align:center; padding-right: 30px"><input id="first-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('first-input-decimal', 'arg1', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); runFPCalc()"></td>
+        <td style="text-align:center; padding-right: 30px"><input id="first-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('first-input-decimal', 'arg1', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); processAllHexadecimals(); runFPCalc()"></td>
         
         <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
         <td style="text-align:left; padding-right: 30px"><input id="arg1" class="hexadecimal input-hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg1', 'first-input-decimal', 'first-input-sign', 'first-input-significand', 'first-input-exponent', 'hiddenbit1'); runFPCalc()"></td>
@@ -105,7 +105,7 @@
       <div id="second-input-table" style="display: true">
         <br>
         <table style="background-color: rgb(197, 248, 187)"><tr>
-          <td style="text-align:center; padding-right: 30px"><input id="second-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('second-input-decimal', 'arg3', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); runFPCalc()"></td>
+          <td style="text-align:center; padding-right: 30px"><input id="second-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('second-input-decimal', 'arg3', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); processAllHexadecimals(); runFPCalc()"></td>
           
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
           <td style="text-align:left; padding-right: 30px"><input id="arg3" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg3', 'second-input-decimal', 'second-input-sign', 'second-input-significand', 'second-input-exponent', 'hiddenbit2'); runFPCalc()"></td>
@@ -125,7 +125,7 @@
         <br>
         <br>
         <table style="background-color: rgb(197, 248, 187)"><tr>
-          <td style="text-align:center; padding-right: 30px"><input id="third-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('third-input-decimal', 'arg5', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); runFPCalc()"></td>
+          <td style="text-align:center; padding-right: 30px"><input id="third-input-decimal" style="text-align:left" size="20" style="font-family: monospace" type="text" value="0.0" onchange="processDecimal('third-input-decimal', 'arg5', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); processAllHexadecimals(); runFPCalc()"></td>
           
           <td><input disabled size="2" style="font-family: monospace; color: blue; text-align:right" type="text" value="0x"></td>
           <td style="text-align:left; padding-right: 30px"><input id="arg5" class="hexadecimal" style="text-align:left" size="18" maxlength="16" style="font-family: monospace" type="text" value="0000000000000000" onchange="processHexadecimal('arg5', 'third-input-decimal', 'third-input-sign', 'third-input-significand', 'third-input-exponent', 'hiddenbit3'); runFPCalc()"></td>
@@ -144,7 +144,7 @@
           <th>Input</th>
           <td style="padding-left: 10px">
 
-            <select class="custom-select-precision" id="input-only-precision-select" onchange="changeAllWidths(); processAllDecimals(); runFPCalc(); ">
+            <select class="custom-select-precision" id="input-only-precision-select" onchange="changeAllWidths(); processAllDecimals(); processAllHexadecimals(); runFPCalc(); ">
             <option value="half">Half (16 bit)</option>
             <option value="single">Single (32 bit)</option>
             <option value="double" selected>Double (64 bit)</option>
