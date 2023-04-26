@@ -89,6 +89,12 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
         }
         significand_id.value = binary.slice(6, 16);
         exponent_id.value = binary.slice(1, 6);
+        if (hex_id.value === "fc00") {
+            dec_id.value = "-Infinity";
+        }
+        if (hex_id.value === "7e00") {
+            dec_id.value = NaN;
+        }
     };
 
     if (precision_id.value === "single") {
@@ -102,6 +108,9 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
         }
         significand_id.value = binary.slice(9, 32);
         exponent_id.value = binary.slice(1, 9);
+        if (hex_id.value === "7fc00000") {
+            dec_id.value = NaN;
+        }
     };
     
 
@@ -116,6 +125,9 @@ function processHexadecimal(whoCalled, theirDecimalID, theirSignID, theirSignifi
         }
         significand_id.value = binary.slice(12, 64);
         exponent_id.value = binary.slice(1, 12);
+        if (hex_id.value === "7ff8000000000000") {
+            dec_id.value = NaN;
+        }
     };
     
     if (binary.includes("1")) {

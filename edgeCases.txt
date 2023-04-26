@@ -1,0 +1,31 @@
+0 / 0, 
+-0 / 0, 
+inf / 0, 
+inf / inf
+-inf / 0
+-inf / inf, 0xfc00 / 
+inf / -inf
+NaN / 0
+0 / NaN
+-0 / NaN
+NaN / inf
+NaN / -inf
+Nan / -0
+
+half
+inf 0x7c00
+-inf 0xfc00
+NaN 0x7e00
+-0 0x8000
+
+single
+inf 0x7f800000
+-inf 0xff800000
+NaN 0x7fc00000
+-0 0x80000000
+
+double
+inf 0x7ff0000000000000
+-inf 0xfff0000000000000
+NaN 0x7ff8000000000000
+-0 0x8000000000000000

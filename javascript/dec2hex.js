@@ -18,29 +18,44 @@ function doubleToHex(d) {
 }
 
   // Converts decimal string to half-precision (16-bit) IEEE 754 hexadecimal representation
+
 function decimalToHalfPrecision(decimalString) {
+    // Parse the decimal string to a 32-bit floating-point number
     const float = parseFloat(decimalString);
+
+    // Create a 32-bit floating-point array and a 32-bit unsigned integer array that shares the same buffer
     const float32Array = new Float32Array(1);
     const uint32Array = new Uint32Array(float32Array.buffer);
+
+    // Store the float value in the floating-point array and extract its binary representation as an unsigned integer
     float32Array[0] = float;
-  
-    const sign = (uint32Array[0] & 0x80000000) >> 16;
-    let exponent = (uint32Array[0] & 0x7f800000) >> 23;
-    let fraction = uint32Array[0] & 0x007fffff;
-  
-    exponent -= 127;
-    exponent += 15;
-  
-    if (exponent >= 31) {
-      exponent = 31;
-      fraction = 0;
-    } else if (exponent <= 0) {
-      exponent = 0;
+    const uint32 = uint32Array[0];
+
+    // Extract the sign, exponent, and fraction components from the unsigned integer using bit masks and shifts
+    const sign = uint32 >>> 31;
+    const exponent = (uint32 >>> 23) & 0xff;
+    const fraction = uint32 & 0x7fffff;
+
+    // Convert the exponent to its biased representation in the half-precision format
+    let biasedExponent;
+    if (exponent === 0) {
+        biasedExponent = 0;
+    } else if (exponent >= 255) {
+        biasedExponent = 31;
+    } else {
+        biasedExponent = exponent - 127 + 15;
     }
+
+    // Pack the sign, biased exponent, and fraction components into a 16-bit unsigned integer in the half-precision format
+    const uint16 = (sign << 15) | (biasedExponent << 10) | fraction >> 13;
+
+    // Convert the unsigned integer to a hexadecimal string and pad it with zeroes to a length of 4 digits
+    const hexString = uint16.toString(16).padStart(4, '0');
+
+    // Return the hexadecimal string
+    return hexString;
+}
   
-    const half = sign | (exponent << 10) | (fraction >> 13);
-    return half.toString(16).padStart(4, '0');
-  }
 
 // Converts decimal string to single-precision (32-bit) IEEE 754 hexadecimal representation
 function decimalToSinglePrecision(decimalString) {

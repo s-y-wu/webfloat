@@ -27,15 +27,15 @@ var Module = {
     if (element) element.value = ''; // clear browser cache
     return function(text) {
         if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-        // These replacements are necessary if you render to raw HTML
-        //text = text.replace(/&/g, "&amp;");
-        //text = text.replace(/</g, "&lt;");
-        //text = text.replace(/>/g, "&gt;");
-        //text = text.replace('\n', '<br>', 'g');
         if (text.startsWith('X:')) {
-            console.log(text);
+            var splitXArray = text.split(' = ');
+            document.getElementById("first-input-decimal").value = splitXArray[1];
         } else if (text.startsWith('Y:')) {
-            console.log(text);
+            var splitYArray = text.split(' = ');
+            document.getElementById("second-input-decimal").value = splitYArray[1];
+        } else if (text.startsWith('Z:')) {
+            var splitZArray = text.split(' = ');
+            document.getElementById("third-input-decimal").value = splitZArray[1]; 
         } else if (text.startsWith('exception')) {
             var splitExceptionArray = text.split('|');
             const flags_id = ["exception-label", "inexact", "divzero", "overflow", "underflow", "invalid"]
@@ -63,15 +63,16 @@ var Module = {
             var cleanHex = spacedHex.replace(/_/g, '');
             cleanHex = cleanHex.replace(/0x([0-9a-fA-F]{4})/, '$1');
             hex_id.value = cleanHex
-            processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
+            // processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
   
+            // convert negative NaN (bad) to postive NaN (what we want) in output decimal
+            // happens for -0 / 0 (output is -NaN but that is not a thing, so we want to convert to +NaN)
             var conversion = {
                 "fe00": "7e00",
                 "ffc00000": "7fc00000",
                 "fff8000000000000": "7ff8000000000000"
             }
             if (cleanHex === "fe00" | cleanHex === "ffc00000" | cleanHex === "fff8000000000000") {
-                console.log(Object.keys(conversion));
                 hex_id.value = conversion[cleanHex];
                 processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
                 dec_id.value = NaN;
