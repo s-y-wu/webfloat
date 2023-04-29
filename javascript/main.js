@@ -57,14 +57,21 @@ var Module = {
             var splitArray = text.split(": ");
             splitArray = splitArray[1].split(" = ");
 
-            dec_id.value = splitArray[1];
-
             var spacedHex = splitArray[0];
             var cleanHex = spacedHex.replace(/_/g, '');
+
             cleanHex = cleanHex.replace(/0x([0-9a-fA-F]{4})/, '$1');
+
+            // use fpcalc's hex
             hex_id.value = cleanHex
-            // processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
-  
+
+            // load binary scientific using fpcalc's hex
+            processHexadecimal('argOutput', 'output-decimal', 'output-sign', 'output-significand', 'output-exponent', 'hiddenbit4');
+            
+            // replace processHexadecimal's loaded decimal with fpcalc's decimal
+            dec_id.value = splitArray[1];
+
+
             // convert negative NaN (bad) to postive NaN (what we want) in output decimal
             // happens for -0 / 0 (output is -NaN but that is not a thing, so we want to convert to +NaN)
             var conversion = {
